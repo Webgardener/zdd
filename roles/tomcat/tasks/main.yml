@@ -1,12 +1,23 @@
 # roles/tomcat/tasks/main.yml
 ---
+
 - name: install tomcat
   package:
-    name: tomcat7
+    name: tomcat
+
+- name: Create ROOT directory
+  file:
+    path: /var/lib/tomcat/webapps/ROOT
+    state: directory
+
+- name: Install index.html default page
+  file:
+    path: /var/lib/tomcat/webapps/ROOT/index.html
+    state: touch
 
 - name: start / enable tomcat
   service:
-    name: tomcat7
+    name: tomcat
     enabled: true
     state: started
 

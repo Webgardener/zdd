@@ -4,7 +4,7 @@
 - name: Deploy configuration
   template:
     src: app.properties.j2
-    dest: /usr/share/tomcat7/lib/app.properties
+    dest: /usr/share/tomcat/lib/app.properties
   register: configuration_result
   notify: Restart tomcat
 
