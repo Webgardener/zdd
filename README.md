@@ -21,6 +21,23 @@ Ensuite, nous pouvons déployer l'application dans sa version 1.1.2 :
 ansible-playbook deploy.yml -e tomcat_app_version=1.1.2
 ```
 
+## Upgrade de l'application
+
+Installons maintenant l'application en version 1.1.3.
+
+```shell
+ansible-playbook deploy.yml -e tomcat_app_version=1.1.3 --step
+```
+Le flag `--step` permet d'executer étape par étape les tâches dans les rôles Ansible. 
+
+Pour comprendre la cinématique de déploiement Canary-release, nous allons regarder ce qui se passe au niveau du HAProxy. Pour cela, ouvrons notre navigateur favori et allons sur l'url `http://localhost:9000/`
+
+Nous allons aussi surveiller l'application :
+
+```shell
+#depuis votre terminal sur l'hôte
+watch curl http://127.0.0.1:8080/SimpleWar/version 
+```
 
 ## Gestion active du pool de serveurs
 Dans les premières secondes avant qu’il ne le marque down HAProxy pourrait laisser revenir des requêtes en erreur. Heureusement c’est un logiciel bien conçu qui en cas d’absence de réponse d’un backend tente d’en joindre un autre.
