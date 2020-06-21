@@ -1,4 +1,4 @@
-# Déploiement Blue-Green avec HAProxy
+# Déploiement sans interruption de service avec HAProxy
 
 Le code présent dans ce repo permet le déploiement d'une application Tomcat avec une gestion intelligente des versions afin d’éviter les déploiements inutiles.
 
@@ -9,7 +9,7 @@ Afin de s'assurer que l'application fonctionne avant d'être exposée, la socket
 
 ## Installation
 
-Nous allons d'abord installer tomcat et HAProxy :
+Nous allons d'abord installer Tomcat et HAProxy :
 
 ```shell
 ansible-playbook install.yml
@@ -28,15 +28,15 @@ Installons maintenant l'application en version 1.1.3.
 ```shell
 ansible-playbook deploy.yml -e tomcat_app_version=1.1.3 --step
 ```
-Le flag `--step` permet d'executer étape par étape les tâches dans les rôles Ansible. 
+Le flag `--step` permet d'executer étape par étape les tâches dans les rôles Ansible.
 
-Pour comprendre la cinématique de déploiement Canary-release, nous allons regarder ce qui se passe au niveau du HAProxy. Pour cela, ouvrons notre navigateur favori et allons sur l'url `http://localhost:9000/`
+Pour comprendre la cinématique de déploiement, nous allons regarder ce qui se passe au niveau du HAProxy. Pour cela, ouvrons notre navigateur favori et allons sur l'url `http://localhost:9000/`
 
 Nous allons aussi surveiller l'application :
 
 ```shell
 #depuis votre terminal sur l'hôte
-watch curl http://127.0.0.1:8080/SimpleWar/version 
+watch curl http://127.0.0.1:8080/SimpleWar/version
 ```
 
 ## Gestion active du pool de serveurs
